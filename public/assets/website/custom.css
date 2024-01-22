@@ -1,0 +1,237 @@
+.dark-blue {
+    background-color: #0a53bf !important;
+}
+
+.whatsapp-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #25d366; /* Cor verde do WhatsApp */
+    color: #fff;
+    font-size: 24px;
+    text-align: center;
+    line-height: 60px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.whatsapp-btn:hover {
+    background-color: #128C7E; /* Cor de destaque ao passar o mouse */
+}
+
+.catalog {
+    height: 350px !important;
+}
+
+.card {
+    position: relative;
+    overflow: hidden; /* Garante que a imagem não ultrapasse os limites do card */
+}
+
+.card:hover img {
+    opacity: 0.3; /* Opacidade de 30% (70% de visibilidade) quando o mouse está sobre o card */
+}
+
+.card-actions {
+    display: none;
+    position: absolute;
+    top: 33%;
+    left: 80%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    text-align: center;
+}
+
+.card:hover .card-actions {
+    display: flex;
+}
+
+.card-action-button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    margin: 0 10px;
+    color: #fff;
+    width: 60px;
+    height: 60px;
+    font-size: 24px;
+}
+
+.button-cart {
+    background-color: #0a53bf;
+}
+
+.button-info:hover {
+    background-color: #3a3b45;
+}
+
+.button-cart:hover {
+    background-color: #0c63e4;
+}
+
+.font-size-20 {
+    font-size: 20px;
+}
+
+.font-size-14 {
+    font-size: 14px;
+}
+
+
+/*Carousel*/
+
+@media (max-width: 767px) {
+    #myCarousel {
+        height: 250px;
+    }
+
+    .carousel-inner,
+    .carousel-item {
+        height: 250px;
+    }
+
+    .carousel-item img {
+        max-height: 100%;
+        width: auto;
+        margin: auto;
+    }
+}
+
+/*Carousel Modal*/
+
+.modal-xl {
+    max-width: 70%;
+}
+
+/*Modal -----------------------*/
+body {
+    font-family: sans-serif;
+}
+section{
+    padding-left: 150px;
+}
+header {
+    height: 15vh;
+    width: 100%;
+    background: lightgray;
+    margin-bottom: 50px;
+}
+
+#product-info {
+    display: flex;
+    width: 95%;
+    margin: 0 auto
+}
+
+.item-image-parent {
+    order: 1;
+    width: 50%;
+    display: flex;
+}
+
+.item-info-parent {
+    order: 2;
+    width: 50%;
+}
+
+.item-list-vertical {
+    order: 1;
+    width: 10%;
+    overflow-y: auto;
+    margin-top: 50px;
+}
+
+.item-image-main {
+    order: 2;
+    width: 90%;
+    height: 100%;
+}
+
+/* sectioning completed */
+
+
+.thumb-box {
+    width: 75%;
+    margin: 10px auto;
+    background: white;
+    border: 1px solid gray;
+}
+.thumb-box img {
+    width: 100%;
+    height: 100%;
+}
+
+.item-image-main img {
+    width: 100%;
+    height: auto;
+    border: 1px solid gray;
+}
+
+.thumb-box:hover {
+    cursor: pointer;
+    border-color: #e77600;;
+    box-shadow: 0px 1px 5px 1px #e77600;
+}
+
+/* Item Info */
+.main-info h4{
+    font-size: 21px;
+    margin-bottom: 0;
+    font-weight: 400
+}
+
+.star-rating {
+    width: 70%;
+    color: gray;
+    font-size: 24px;
+    border-bottom: 0.4px solid rgba(194, 194, 194, 0.829);
+}
+
+.star-rating span {
+    color: gold;
+}
+
+.main-info p {
+    font-size: 15px;
+    color: gray;
+    margin-bottom: 30px;
+}
+
+#price {
+    color: rgb(168, 14, 14);
+    font-size: 21px;
+}
+
+/* Select Items */
+
+.change-color {
+    margin-bottom: 10px;
+}
+
+.change-color .thumb-box{
+    margin: 10px 10px 10px 0;
+    width: 40px;
+    display: inline-block;
+}
+
+.change-size select {
+    padding: 5px 10px;
+    border-radius: 4px;
+    border-color: rgb(189, 189, 189);
+    margin-top: 10px;
+}
+
+.description ul {
+    padding-left: 17px;
+    font-size: 15px;
+    line-height: 1.3rem;
+}
