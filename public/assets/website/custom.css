@@ -235,3 +235,27 @@ header {
     font-size: 15px;
     line-height: 1.3rem;
 }
+
+.btn-add-cart {
+    color: #0a53bf;
+    border-color: #0a53bf;
+    background-color: #fff;
+}
+
+.btn-add-cart:hover {
+    color: #fff;
+    background-color: #0a53bf;
+    border-color: #0a53bf;
+}
+
+.btn-share-whatsapp {
+    color: #25d366;
+    border-color: #25d366;
+    background-color: #fff;
+}
+
+.btn-share-whatsapp:hover {
+    color: #fff;
+    background-color: #25d366;
+    border-color: #25d366;
+}

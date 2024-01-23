@@ -13,7 +13,7 @@
         </div>
         <div class="container text-center text-md-left mt-5">
             <div class="row mt-3">
-                <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+                <div class="col-md-4 col-lg-5 col-xl-4 mx-auto mb-4">
                     <h6 class="text-uppercase font-weight-bold">Móveis Pontarollo</h6>
                     <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
                     <p class="text-justify">
@@ -40,27 +40,21 @@
                     <h6 class="text-uppercase font-weight-bold">Redes Sociais</h6>
                     <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
                     <p>
-                        <a href="#"><span class="fa fa-brands fa-facebook-f"></span> Facebook</a>
+                        <a href="https://www.facebook.com/moveispontarollooficial" target="_blank"><span class="fa fa-brands fa-facebook-f"></span> Facebook</a>
                     </p>
                     <p>
-                        <a href="#"><span class="fa fa-brands fa-twitter"></span> Twitter</a>
-                    </p>
-                    <p>
-                        <a href="#"><span class="fa fa-brands fa-instagram"></span> Instagram</a>
-                    </p>
-                    <p>
-                        <a href="#"><span class="fa fa-brands fa-linkedin"></span> LinkedIn</a>
+                        <a href="https://www.instagram.com/moveis.pontarollo/" target="_blank"><span class="fa fa-brands fa-instagram"></span> Instagram</a>
                     </p>
                 </div>
-                <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+                <div class="col-md-5 col-lg-4 col-xl-4 mx-auto mb-md-0 mb-4">
                     <h6 class="text-uppercase font-weight-bold">Contato</h6>
                     <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
                     <p>
-                        <i class="fas fa-home mr-3"></i> Centro, Prudentopolis, BR</p>
+                        <i class="fas fa-home mr-3"></i> Avenida São João 1949, Prudentópolis, PR, Brazil</p>
                     <p>
-                        <i class="fas fa-envelope mr-3"></i> pontarollo@example.com</p>
+                        <i class="fas fa-envelope mr-3"></i> televendas@lojaspontarollo.com.br</p>
                     <p>
-                        <i class="fas fa-phone mr-3"></i> +55 (42) 99925-3265</p>
+                        <i class="fas fa-phone mr-3"></i> +55 42 9871-0091</p>
                 </div>
             </div>
         </div>
@@ -68,8 +62,8 @@
         <div class="row pt-4 border-top">
             <div class="col-lg-6 text-center text-lg-end">
                 <ul class="list-unstyled d-inline-flex ms-auto">
-                    <li class="me-4 mx-2"><a href="#">Termos &amp; Condições</a></li>
-                    <li class="mx-2"><a href="#">Politica de privacidade</a></li>
+                    <li class="me-4 mx-2"><a href="{{ route("terms") }}">Termos &amp; Condições</a></li>
+                    <li class="mx-2"><a href="{{ route("lgpd") }}">Politica de privacidade</a></li>
                 </ul>
             </div>
         </div>

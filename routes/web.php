@@ -15,9 +15,9 @@ use App\Http\Controllers\Website\Manager;
 */
 
 Route::get('/', [Manager::class, 'home'])->name('home');
-Route::get('/about', [Manager::class, 'about'])->name('about');
+Route::get('/terms', [Manager::class, 'terms'])->name('terms');
 Route::get('/catalog', [Manager::class, 'catalog'])->name('catalog');
-Route::get('/contact', [Manager::class, 'contact'])->name('contact');
+Route::get('/lgpd', [Manager::class, 'lgpd'])->name('lgpd');
 
 Route::middleware([
     'auth:sanctum',
