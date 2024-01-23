@@ -11,10 +11,10 @@ class Manager
         ]);
     }
 
-    public static function about()
+    public static function terms()
     {
-        return view('website.about', [
-            'page' => 'about'
+        return view('website.terms', [
+            'page' => 'terms'
         ]);
     }
 
@@ -25,10 +25,10 @@ class Manager
         ]);
     }
 
-    public static function contact()
+    public static function lgpd()
     {
-        return view('website.contact', [
-            'page' => 'contact'
+        return view('website.lgpd', [
+            'page' => 'lgpd'
         ]);
     }
 }

@@ -35,14 +35,14 @@
                 <li class="nav-item {{ $page === "home" ? "active" : "" }}">
                     <a class="nav-link" href="{{ route("home") }}">Móveis</a>
                 </li>
-                <li class="nav-item {{ $page === "about" ? "active" : "" }}">
-                    <a class="nav-link" href="{{ route("about") }}">Eletrodomésticos</a>
+                <li class="nav-item {{ $page === "terms" ? "active" : "" }}">
+                    <a class="nav-link" href="{{ route("terms") }}">Eletrodomésticos</a>
                 </li>
                 <li class="nav-item {{ $page === "catalog" ? "active" : "" }}">
                     <a class="nav-link" href="{{ route("catalog") }}">Estofados</a>
                 </li>
-                <li class="nav-item {{ $page === "contact" ? "active" : "" }}">
-                    <a class="nav-link" href="{{ route("contact") }}">Celulares</a>
+                <li class="nav-item {{ $page === "lgpd" ? "active" : "" }}">
+                    <a class="nav-link" href="{{ route("lgpd") }}">Celulares</a>
                 </li>
             </ul>
 
