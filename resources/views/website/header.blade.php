@@ -21,8 +21,8 @@
 <nav class="custom-navbar navbar navbar-expand-md navbar-dark bg-dark dark-blue">
     <div class="container">
 
-    <!-- Logotipo à esquerda em telas médias e maiores -->
-        <a class="navbar-brand order-md-1" href="{{ route("home") }}">
+        <!-- Logotipo à esquerda em telas médias e maiores -->
+        <a class="navbar-brand" href="{{ route('home') }}">
             <img width="150px" src="{{ url('assets/website/logo.png') }}" alt="Logo"> Móveis Pontarollo
         </a>
 
@@ -31,37 +31,36 @@
             <span class="navbar-toggler-icon"></span>
         </button>
 
-
-    <!-- Menu à direita em telas médias e maiores -->
-        <div class="collapse navbar-collapse order-md-2" id="navbarsFurni">
-            <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
-                <li class="nav-item {{ $page === "home" ? "active" : "" }}">
-                    <a class="nav-link" href="{{ route("home") }}">Móveis</a>
+        <!-- Menu à direita em telas médias e maiores -->
+        <div class="collapse navbar-collapse" id="navbarsFurni" style="margin-left: 20vw; text-align: center">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item {{ $page === 'home' ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ route('home') }}">Móveis</a>
                 </li>
-                <li class="nav-item {{ $page === "terms" ? "active" : "" }}">
-                    <a class="nav-link" href="{{ route("terms") }}">Eletrodomésticos</a>
+                <li class="nav-item {{ $page === 'terms' ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ route('terms') }}">Eletrodomésticos</a>
                 </li>
-                <li class="nav-item {{ $page === "catalog" ? "active" : "" }}">
-                    <a class="nav-link" href="{{ route("catalog") }}">Estofados</a>
+                <li class="nav-item {{ $page === 'catalog' ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ route('catalog') }}">Estofados</a>
                 </li>
-                <li class="nav-item {{ $page === "lgpd" ? "active" : "" }}">
-                    <a class="nav-link" href="{{ route("lgpd") }}">Celulares</a>
+                <li class="nav-item {{ $page === 'lgpd' ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ route('lgpd') }}">Celulares</a>
                 </li>
             </ul>
-        </div>
 
-    <!-- Ícones de usuário e carrinho à direita em telas pequenas -->
-        <div class="navbar-nav ml-auto order-md-3 d-flex align-items-center">
-            <div class="nav-item">
-                <a class="nav-link" href="{{ route('login') }}">
-                    <i class="fa-2x fa fa-user"></i>
-                </a>
-            </div>
-            <div class="nav-item">
-                <a class="nav-link" href="cart.html">
-                    <i class="fa-2x fa fa-shopping-cart"></i>
-                </a>
-            </div>
+            <!-- Ícones de usuário e carrinho -->
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('login') }}">
+                        <i class="fa-2x fa fa-user"></i>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="cart.html">
+                        <i class="fa-2x fa fa-shopping-cart"></i>
+                    </a>
+                </li>
+            </ul>
         </div>
 
     </div>
