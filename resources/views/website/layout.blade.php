@@ -4,11 +4,6 @@
 
 @yield('content')
 
-<!-- Botão WhatsApp flutuante -->
-<a href="https://web.whatsapp.com/send?phone=+554298710091" target="_blank" class="whatsapp-btn btn btn-success">
-    <i class="fab fa-whatsapp"></i>
-</a>
-
 @include('website.footer')
 
 

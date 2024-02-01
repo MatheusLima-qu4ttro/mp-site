@@ -1,20 +1,17 @@
+@if(count($slides))
 <!-- Carousel -->
 <div id="myCarousel" class="carousel slide" data-ride="carousel">
     <ol class="carousel-indicators">
-        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-        <li data-target="#myCarousel" data-slide-to="1"></li>
-        <li data-target="#myCarousel" data-slide-to="2"></li>
+        @foreach($slides as $slide)
+        <li data-target="#myCarousel" data-slide-to="$loop->index" class="{{$loop->index == 0 ? 'active' : ''}}"></li>
+        @endforeach
     </ol>
     <div class="carousel-inner">
-        <div class="carousel-item active">
-            <img class="d-block w-100" src="{{ url('slide1.jpg') }}" alt="First slide">
-        </div>
-        <div class="carousel-item">
-            <img class="d-block w-100" src="{{ url('slide2.png') }}" alt="Second slide">
-        </div>
-        <div class="carousel-item">
-            <img class="d-block w-100" src="{{ url('slide3.png') }}" alt="Third slide">
-        </div>
+        @foreach($slides as $slide)
+            <div class="carousel-item {{$loop->index == 0 ? 'active' : ''}}">
+                <img class="d-block w-100" src="{{ url($slide->path) }}" alt="{{$slide->name}}">
+            </div>
+        @endforeach
     </div>
     <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -26,3 +23,4 @@
     </a>
 </div>
 <!-- Carousel -->
+@endif

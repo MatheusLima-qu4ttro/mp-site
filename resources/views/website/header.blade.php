@@ -23,7 +23,7 @@
 
         <!-- Logotipo à esquerda em telas médias e maiores -->
         <a class="navbar-brand" href="{{ route('home') }}">
-            <img width="150px" src="{{ url('assets/website/logo.png') }}" alt="Logo"> Móveis Pontarollo
+            <img width="150px" src="{{ url($company->logo_path ?: '') }}" alt="Logo"> {{$company->company ?: ''}}<!--Móveis Pontarollo-->
         </a>
 
         <!-- Botão de alternância para dispositivos móveis -->
@@ -34,18 +34,29 @@
         <!-- Menu à direita em telas médias e maiores -->
         <div class="collapse navbar-collapse" id="navbarsFurni" style="margin-left: 20vw; text-align: center">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item {{ $page === 'home' ? 'active' : '' }}">
-                    <a class="nav-link" href="{{ route('home') }}">Móveis</a>
-                </li>
-                <li class="nav-item {{ $page === 'terms' ? 'active' : '' }}">
-                    <a class="nav-link" href="{{ route('terms') }}">Eletrodomésticos</a>
-                </li>
-                <li class="nav-item {{ $page === 'catalog' ? 'active' : '' }}">
-                    <a class="nav-link" href="{{ route('catalog') }}">Estofados</a>
-                </li>
-                <li class="nav-item {{ $page === 'lgpd' ? 'active' : '' }}">
-                    <a class="nav-link" href="{{ route('lgpd') }}">Celulares</a>
-                </li>
+                @foreach($categories as $key => $cat)
+                    @if(count($cat) == 1)
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">{{$cat[$key]}}</a>
+                        </li>
+                    @else
+                        <li class="nav-item dropdown">
+                            @foreach($cat as $subKey => $subCat)
+                                @if ($loop->first)
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarsFurni" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        {{$subCat}}
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarsFurni">
+                                @else
+                                        <a class="dropdown-item" href="#">
+                                            {{$subCat[$subKey]}}
+                                        </a>
+                                @endif
+                            @endforeach
+                                    </div>
+                        </li>
+                    @endif
+                @endforeach
             </ul>
 
             <!-- Ícones de usuário e carrinho -->
@@ -65,3 +76,8 @@
 
     </div>
 </nav>
+
+<!-- Botão WhatsApp flutuante -->
+<a href="https://web.whatsapp.com/send?phone={{$company->whatsapp ?: ''}}" target="_blank" class="whatsapp-btn btn btn-success">
+    <i class="fab fa-whatsapp"></i>
+</a>
