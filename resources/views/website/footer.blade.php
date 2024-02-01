@@ -14,10 +14,11 @@
         <div class="container text-center text-md-left mt-5">
             <div class="row mt-3">
                 <div class="col-md-4 col-lg-5 col-xl-4 mx-auto mb-4">
-                    <h6 class="text-uppercase font-weight-bold">Móveis Pontarollo</h6>
+                    <h6 class="text-uppercase font-weight-bold">{{$company->company ?: ''}}</h6>
                     <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
                     <p class="text-justify">
-                        Descubra a combinação perfeita entre funcionalidade e estilo em nossa ampla seleção de móveis e eletrodomésticos. Na MÓVEIS PONTAROLLO, oferecemos soluções inteligentes para transformar sua casa em um espaço acolhedor e moderno.
+{{--                        Descubra a combinação perfeita entre funcionalidade e estilo em nossa ampla seleção de móveis e eletrodomésticos. Na MÓVEIS PONTAROLLO, oferecemos soluções inteligentes para transformar sua casa em um espaço acolhedor e moderno.--}}
+                        {{$company->company_description ?: ''}}
                     </p>
                 </div>
 {{--                <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">--}}
@@ -39,22 +40,41 @@
                 <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
                     <h6 class="text-uppercase font-weight-bold">Redes Sociais</h6>
                     <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+                    @if($company->facebook_url)
                     <p>
-                        <a href="https://www.facebook.com/moveispontarollooficial" target="_blank"><span class="fa fa-brands fa-facebook-f"></span> Facebook</a>
+                        <a href="{{$company->facebook_url}}{{--https://www.facebook.com/moveispontarollooficial--}}" target="_blank"><span class="fa fa-brands fa-facebook-f"></span> Facebook</a>
                     </p>
+                    @endif
+                    @if($company->instagram_url)
                     <p>
-                        <a href="https://www.instagram.com/moveis.pontarollo/" target="_blank"><span class="fa fa-brands fa-instagram"></span> Instagram</a>
+                        <a href="{{$company->instagram_url}}{{--https://www.instagram.com/moveis.pontarollo/--}}" target="_blank"><span class="fa fa-brands fa-instagram"></span> Instagram</a>
                     </p>
+                    @endif
+                    @if($company->linkedin_url)
+                    <p>
+                        <a href="{{$company->linkedin_url}}" target="_blank"><span class="fa fa-brands fa-linkedin-in"></span> LinkedIn</a>
+                    </p>
+                    @endif
+                    @if($company->twitter_url)
+                    <p>
+                        <a href="{{$company->twitter_url}}" target="_blank"><span class="fa fa-brands fa-twitter"></span> Twitter</a>
+                    </p>
+                    @endif
+                    @if($company->tiktok_url)
+                    <p>
+                        <a href="{{$company->tiktok_url}}" target="_blank"><span class="fa fa-brands fa-tiktok"></span> Tiktok</a>
+                    </p>
+                    @endif
                 </div>
                 <div class="col-md-5 col-lg-4 col-xl-4 mx-auto mb-md-0 mb-4">
                     <h6 class="text-uppercase font-weight-bold">Contato</h6>
                     <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
                     <p>
-                        <i class="fas fa-home mr-3"></i> Avenida São João 1949, Prudentópolis, PR, Brazil</p>
+                        <i class="fas fa-home mr-3"></i> {{$company->address ?: ''}}{{--Avenida São João 1949, Prudentópolis, PR, Brazil--}}</p>
                     <p>
-                        <i class="fas fa-envelope mr-3"></i> televendas@lojaspontarollo.com.br</p>
+                        <i class="fas fa-envelope mr-3"></i> {{$company->email ?: ''}}{{--televendas@lojaspontarollo.com.br--}}</p>
                     <p>
-                        <i class="fas fa-phone mr-3"></i> +55 42 9871-0091</p>
+                        <i class="fas fa-phone mr-3"></i> {{$company->whatsapp ?: ''}}{{--+55 42 9871-0091--}}</p>
                 </div>
             </div>
         </div>
