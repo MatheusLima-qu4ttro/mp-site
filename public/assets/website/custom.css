@@ -134,13 +134,13 @@ header {
 
 .item-image-parent {
     order: 1;
-    width: 50%;
+    width: 100%;
     display: flex;
 }
 
 .item-info-parent {
     order: 2;
-    width: 50%;
+    width: 100%;
 }
 
 .item-list-vertical {
