@@ -29,5 +29,7 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 
-    Route::get('/product_create', [Product::class, 'createProduct'])->name('product_create');
+    Route::get('/product_form', [Product::class, 'productForm'])->name('product_form');
+    Route::post('/product_create', [Product::class, 'productCreate'])->name('product_create');
+    Route::post('/product_variant_create', [Product::class, 'productVariantCreate'])->name('product_variant_create');
 });
