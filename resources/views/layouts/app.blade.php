@@ -17,9 +17,15 @@
         <script src="{{url('assets/vendor/chart.js/Chart.min.js')}}"></script>
         <script src="{{url('assets/js/demo/chart-area-demo.js')}}"></script>
         <script src="{{url('assets/js/demo/chart-pie-demo.js')}}"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
         <script src="{{ mix('js/app.js') }}" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+        <link href="https://unpkg.com/tabulator-tables@5.5.4/dist/css/tabulator.min.css" rel="stylesheet">
+        <script type="text/javascript" src="https://unpkg.com/tabulator-tables@5.5.4/dist/js/tabulator.min.js"></script>
+        <link href="https://unpkg.com/tabulator-tables@4.3.0/dist/css/bootstrap/tabulator_bootstrap.css" rel="stylesheet">
+
         @livewireStyles
     </head>
     <body class="font-sans antialiased bg-light">
@@ -44,4 +50,33 @@
         @livewireScripts
         @stack('scripts')
     </body>
+
+    {{--mostra mensagem de suceso se existir a variavel sucess--}}
+    @if(session('success'))
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Sucesso!',
+                text: '{{ session('success') }}',
+            })
+        </script>
+    @endif
+
+    {{--mostra mensagem de erro se existir a variavel error--}}
+    @if(session('error'))
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Erro!',
+                text: '{{ session('error') }}',
+            })
+        </script>
+    @endif
+
 </html>
+
+<script>
+    $(document).ready(function() {
+        $('.decimal').mask('000.000.000.000.000,00', {reverse: true});
+    });
+</script>

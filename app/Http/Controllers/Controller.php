@@ -10,4 +10,12 @@ use Illuminate\Routing\Controller as BaseController;
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+
+    public static function decimalSave($number){
+        return str_replace(',', '.', str_replace('.', '', $number));
+    }
+
+    public static function decimalShow($number){
+        return number_format($number, 2, ',', '.');
+    }
 }
