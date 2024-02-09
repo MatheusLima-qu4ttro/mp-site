@@ -32,4 +32,5 @@ Route::middleware([
     Route::get('/product_form', [Product::class, 'productForm'])->name('product_form');
     Route::post('/product_create', [Product::class, 'productCreate'])->name('product_create');
     Route::post('/product_variant_create', [Product::class, 'productVariantCreate'])->name('product_variant_create');
+    Route::get('/product_variant_delete', [Product::class, 'productVariantDelete'])->name('product_variant_delete');
 });

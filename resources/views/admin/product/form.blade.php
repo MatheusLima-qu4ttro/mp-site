@@ -45,6 +45,8 @@
                     <div class="modal-body">
                         <form enctype="multipart/form-data" method="post" action="{{route('product_variant_create')}}">
                             <input type="hidden" name="productId" value="{{$product->id ?? null}}">
+                            <input type="hidden" name="variantId" id="variantId" value="">
+
                             <div class="row">
                                     <div class="form-group col">
                                         <label for="price">Preço original</label>
@@ -84,7 +86,7 @@
                                 <div class="row">
                                     <div class="form-group col">
                                         <label for="productVolt">Voltagem</label>
-                                        <select name="productVolt" class="form-control" id="productVolt" required>
+                                        <select name="voltage" class="form-control" id="productVolt" required>
                                             <option value="" disabled selected>Selecione uma voltagem</option>
                                             <option>110</option>
                                             <option>220</option>
@@ -118,16 +120,117 @@
                 </div>
             </div>
         </div>
-        <div id="variantFields"></div>
+        <input type="text" id="search-field" class="form-control m-1 col-3" placeholder="Buscar..." />
+        <div id="variantGrid"></div>
+
     </x-slot>
 </x-app-layout>
 
 <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var table = new Tabulator("#variantGrid", {
+            columns: [
+                {title: "ID", field: "id"},
+                {title: "Descrição", field: "description"},
+                {title: "Modelo", field: "model"},
+                {title: "Cor", field: "color_name"},
+                {title: "Preço", field: "price"},
+                {title: "Preço promocional", field: "promotional_price"},
+                {title: "Voltagem", field: "voltage"},
+                {
+                    title: "Ações",
+                    formatter: function(cell, formatterParams, onRendered){
+                        return "<button class='btn btn-danger m-1 delete-btn' data-id='" + cell.getRow().getData().id + "'><i class='fa fa-trash text-white'></i></button>" +
+                            "<button class='btn btn-secondary m-1 edit-btn' data-id='" + cell.getRow().getData().id + "'><i class='fa fa-pen text-white'></i></button>";
+                    },
+                    cellClick: function(e, cell){
+                        var clickedElement = e.target.closest('button'); // Encontra o botão mais próximo que foi clicado
+                        var id = cell.getRow().getData().id;
+
+                        if(clickedElement && clickedElement.classList.contains('edit-btn')){
+                            editarVariant(id);
+                        } else if(clickedElement && clickedElement.classList.contains('delete-btn')){
+                            excluirVariant({{$product->id}}, id);
+                        }
+                    }
+
+
+
+                }
+            ],
+            data: @json($variants), // Certifique-se de que $variants é convertido para JSON
+            layout: "fitColumns",
+            pagination: "local",
+            paginationSize: 7,
+            langs:{
+                "default":{
+                    "pagination":{
+                        "first": "⬅️",
+                        "prev": "Anterior",
+                        "next": "Próximo",
+                        "last": "➡️",
+                    },
+                },
+            },
+        });
+
+        // Ativa a busca
+        document.getElementById('search-field').addEventListener('keyup', function () {
+            table.setFilter(customFilterFunction);
+        });
+
+        function customFilterFunction(data){
+            var value = document.getElementById('search-field').value.toLowerCase();
+            return Object.values(data).some(val => String(val).toLowerCase().includes(value));
+        }
+
+        function editarVariant(id) {
+            // Exemplo de como você poderia buscar os detalhes da variante.
+            var variantDetails = table.getData().find(variant => variant.id == id);
+
+            if (variantDetails) {
+                // Preenche os campos do modal com os dados da variante
+                $('#variantId').val(variantDetails.id); // Preenchendo o campo hidden com o ID da variante
+                $('#price').val(variantDetails.price);
+                $('#promotionalPrice').val(variantDetails.promotional_price);
+                $('#productVariantDescription').val(variantDetails.description);
+                $('#model').val(variantDetails.model);
+                $('#productColorName').val(variantDetails.color_name);
+                $('#productColor').val(variantDetails.colorCode); // Certifique-se de que 'colorCode' corresponde ao campo da sua variante
+                $('#productVolt').val(variantDetails.voltage);
+
+                // Abre o modal
+                $('#variantModal').modal('show');
+            } else {
+                console.log("Detalhes da variante não encontrados para o ID:", id);
+            }
+        }
+
+        function excluirVariant(productId, variantId) {
+            Swal.fire({
+                title: "Atenção!",
+                text: "Essa ação é irreversível, deseja continuar?",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                cancelButtonText: "Cancelar",
+                confirmButtonText: "Sim",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                   location.href = "{{route('product_variant_delete')}}?variantId=" + variantId + "&productId=" + productId;
+                }
+            });
+        }
+    });
+
+
+
     $(document).ready(function() {
         $('#imagemProduto').on('change', function() {
             var files = $(this)[0].files;
             var carouselInner = $('#imagePreviewCarousel');
-            carouselInner.empty(); // Limpa as imagens anteriores
+            carouselInner.empty();
 
             for (var i = 0; i < files.length; i++) {
                 (function(file){

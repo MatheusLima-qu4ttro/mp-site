@@ -37,12 +37,14 @@ class Product extends Controller
 
         if($request->productId){
             $product = DB::table('products')->where('id', $request->productId)->first();
+            $variants = DB::table('product_variants')->where('product_id', $request->productId)->get();
         }
 
         return view('admin.product.form', [
             'page' => 'product_form',
             'categories' => $categories,
-            'product' => $product ?? null
+            'product' => $product ?? null,
+            'variants' => $variants ?? []
         ]);
     }
 
@@ -83,16 +85,26 @@ class Product extends Controller
             ];
 
             if($request->productId && $request->variantId){
-                DB::table('product_variants')->where('id', $request->productId)->update($data);
+                DB::table('product_variants')->where('id', $request->variantId)->update($data);
                 return Redirect::to('product_form?productId='.$request->productId)->with('success', 'Variante editada com sucesso!');
             }else{
-                $productId = DB::table('product_variants')->insertGetId($data);
-                return Redirect::to('product_form?productId='.$productId)->with('success', 'Variante criada com sucesso!');
+                $variantId = DB::table('product_variants')->insertGetId($data);
+                return Redirect::to('product_form?productId='.$request->productId)->with('success', 'Variante criada com sucesso!');
             }
 
         }catch (\Exception $e) {
-            dd($e);
             return redirect()->route('product_form')->with('error', 'Erro ao criar variante, Contate o administrador do sistema!');
         }
+    }
+
+    public static function productVariantDelete(Request $request)
+    {
+        try {
+            DB::table('product_variants')->where('id', $request->variantId)->delete();
+            return Redirect::to('product_form?productId='.$request->productId)->with('success', 'Variante criada com sucesso!');
+        }catch (\Exception $e){
+            return Redirect::to('product_form?productId='.$request->productId)->with('error', 'Erro ao deletar variante, Contate o administrador do sistema!');
+        }
+
     }
 }
