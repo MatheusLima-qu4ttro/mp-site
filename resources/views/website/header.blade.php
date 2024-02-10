@@ -34,26 +34,23 @@
         <!-- Menu à direita em telas médias e maiores -->
         <div class="collapse navbar-collapse" id="navbarsFurni" style="margin-left: 20vw; text-align: center">
             <ul class="navbar-nav mr-auto">
-                @foreach($categories as $key => $cat)
-                    @if(count($cat) == 1)
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">{{$cat[$key]}}</a>
+                @foreach($categories as $category)
+                    @if(isset($category['subcategories']))
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarsFurni{{$category['id']}}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                {{$category['name']}}
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarsFurni{{$category['id']}}">
+                                @foreach($category['subcategories'] as $subcategory)
+                                    <a class="dropdown-item" href="#">
+                                        {{$subcategory['name']}}
+                                    </a>
+                                @endforeach
+                            </div>
                         </li>
                     @else
-                        <li class="nav-item dropdown">
-                            @foreach($cat as $subKey => $subCat)
-                                @if ($loop->first)
-                                    <a class="nav-link dropdown-toggle" href="#" id="navbarsFurni" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        {{$subCat}}
-                                    </a>
-                                    <div class="dropdown-menu" aria-labelledby="navbarsFurni">
-                                @else
-                                        <a class="dropdown-item" href="#">
-                                            {{$subCat[$subKey]}}
-                                        </a>
-                                @endif
-                            @endforeach
-                                    </div>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">{{$category['name']}}</a>
                         </li>
                     @endif
                 @endforeach

@@ -150,7 +150,7 @@ class Product extends Controller
                 if($request->hasFile('imagem_produto')){
                     foreach ($request->file('imagem_produto') as $photo) {
                         $photoName = md5(uniqid(rand(), true)).'_'.$request->productId.'_'.$variantId;
-                        $photo->move(public_path('uploads/products/'.$request->productId.'/'.$request->variantId), $photoName);
+                        $photo->move(public_path('uploads/products/'.$request->productId.'/'.$variantId), $photoName);
                         $photos[] = $photoName;
                     }
                 }
@@ -163,7 +163,7 @@ class Product extends Controller
 
                     DB::table('product_images')->insert([
                         'product_variant_id' => $variantId,
-                        'path' => 'uploads/products/'.$request->productId.'/'.$request->variantId.'/'.$photo,
+                        'path' => 'uploads/products/'.$request->productId.'/'.$variantId.'/'.$photo,
                         'is_main' => $isMain
                     ]);
                 }
@@ -172,7 +172,6 @@ class Product extends Controller
             }
 
         }catch (\Exception $e) {
-            dd($e->getMessage());
             return redirect()->route('product_form')->with('error', 'Erro ao criar variante, Contate o administrador do sistema!');
         }
     }
@@ -180,6 +179,15 @@ class Product extends Controller
     public static function productVariantDelete(Request $request)
     {
         try {
+            //apaga as imagens da pasta referente a variante
+            $files = glob(public_path('uploads/products/'.$request->productId.'/'.$request->variantId));
+            foreach ($files as $file) {
+                if (is_dir($file)) {
+                    self::deleteDirectory($file);
+                }
+            }
+            DB::table('product_images')->where('product_variant_id', $request->variantId)->delete();
+
             DB::table('product_variants')->where('id', $request->variantId)->delete();
             return Redirect::to('product_form?productId='.$request->productId)->with('success', 'Variante criada com sucesso!');
         }catch (\Exception $e){
