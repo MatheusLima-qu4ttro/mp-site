@@ -13,11 +13,23 @@ class Manager
 
         $categoriesArray = self::getCategories();
 
+        $variants = DB::table('product_variants')->get();
+        foreach ($variants as $variant) {
+            $img = DB::table('product_images')
+                ->where('product_variant_id', '=', $variant->id)
+                ->where('is_main', '=', 1)
+                ->first();
+            if ($img) {
+                $variant->path = $img->path;
+            }
+        }
+
         return view('website.home', [
             'page' => 'home',
             'company' => $company,
             'slides' => $slides,
-            'categories' => $categoriesArray
+            'categories' => $categoriesArray,
+            'products' => $variants
         ]);
     }
 
@@ -54,17 +66,25 @@ class Manager
         ]);
     }
 
-    private static function getCategories() {
+    private static function getCategories($parentId = null) {
+        $categories = DB::table('categories')
+            ->where('parent_id', $parentId)
+            ->get();
+
         $categoriesArray = array();
-        $categories = DB::table('categories')->get();
+
         foreach ($categories as $category) {
-            $arr                = array();
-            $arr[$category->id] = $category->name;
-            if (!$category->parent_id) {
-                $categoriesArray[$category->id] = $arr;
-            } else {
-                $categoriesArray[$category->parent_id][$category->id] = $arr;
+            $arr = array();
+            $arr['id'] = $category->id;
+            $arr['name'] = $category->name;
+
+            // Recursivamente obter subcategorias
+            $subcategories = self::getCategories($category->id);
+            if (!empty($subcategories)) {
+                $arr['subcategories'] = $subcategories;
             }
+
+            $categoriesArray[] = $arr;
         }
 
         return $categoriesArray;
