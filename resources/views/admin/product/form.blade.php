@@ -95,7 +95,7 @@
                                     </div>
                                     <div class="form-group col">
                                         <label for="imagemProduto">Imagem do Produto:</label>
-                                        <input type="file" id="imagemProduto" name="imagem_produto[]" accept="image/*" multiple required>
+                                        <input type="file" id="imagemProduto" name="imagem_produto[]" accept="image/*" multiple>
                                         <br>
                                     </div>
                                     <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
@@ -120,9 +120,10 @@
                 </div>
             </div>
         </div>
-        <input type="text" id="search-field" class="form-control m-1 col-3" placeholder="Buscar..." />
-        <div id="variantGrid"></div>
-
+        @if(isset($product->id))
+            <input type="text" id="search-field" class="form-control m-1 col-3" placeholder="Buscar..." />
+            <div id="variantGrid"></div>
+         @endif
     </x-slot>
 </x-app-layout>
 
@@ -150,7 +151,7 @@
                         if(clickedElement && clickedElement.classList.contains('edit-btn')){
                             editarVariant(id);
                         } else if(clickedElement && clickedElement.classList.contains('delete-btn')){
-                            excluirVariant({{$product->id}}, id);
+                            excluirVariant({{$product->id ?? null}}, id);
                         }
                     }
 
@@ -185,19 +186,29 @@
         }
 
         function editarVariant(id) {
-            // Exemplo de como você poderia buscar os detalhes da variante.
             var variantDetails = table.getData().find(variant => variant.id == id);
 
             if (variantDetails) {
                 // Preenche os campos do modal com os dados da variante
-                $('#variantId').val(variantDetails.id); // Preenchendo o campo hidden com o ID da variante
-                $('#price').val(variantDetails.price);
-                $('#promotionalPrice').val(variantDetails.promotional_price);
+                $('#variantId').val(variantDetails.id);
+                $('#price').val(decimalShow(variantDetails.price));
+                $('#promotionalPrice').val(decimalShow(variantDetails.promotional_price));
                 $('#productVariantDescription').val(variantDetails.description);
                 $('#model').val(variantDetails.model);
                 $('#productColorName').val(variantDetails.color_name);
-                $('#productColor').val(variantDetails.colorCode); // Certifique-se de que 'colorCode' corresponde ao campo da sua variante
+                $('#productColor').val(variantDetails.colorCode);
                 $('#productVolt').val(variantDetails.voltage);
+
+                // Aqui você adiciona a lógica para preencher o carrossel com as imagens da variante
+                var carouselInner = $('#imagePreviewCarousel');
+                carouselInner.empty(); // Limpa o carrossel antes de adicionar novas imagens
+                if (variantDetails.image && variantDetails.image.length > 0) {
+                    variantDetails.image.forEach(function(image, index) {
+                        var isActive = index === 0 ? 'active' : ''; // Faz a primeira imagem ativa
+                        var carouselItem = $(`<div class="carousel-item ${isActive}"><img src="${image.image}" class="d-block w-100" alt="Imagem do Produto"></div>`); // Certifique-se de que `image.url` é o caminho correto para a URL da imagem
+                        carouselInner.append(carouselItem);
+                    });
+                }
 
                 // Abre o modal
                 $('#variantModal').modal('show');
@@ -205,6 +216,7 @@
                 console.log("Detalhes da variante não encontrados para o ID:", id);
             }
         }
+
 
         function excluirVariant(productId, variantId) {
             Swal.fire({
@@ -245,4 +257,32 @@
             }
         });
     });
+
+    //valida se o campo promotionalPrice é maior que o campo price se for ele limpa os campos e tambem validar o price
+    $('#price').on('change', function() {
+        if(parseFloat($('#promotionalPrice').val()) > parseFloat($('#price').val())){
+            $('#promotionalPrice').val('');
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'O preço promocional não pode ser maior que o preço original!',
+            });
+        }
+    });
+
+    $('#promotionalPrice').on('change', function() {
+        if(parseFloat($('#promotionalPrice').val()) > parseFloat($('#price').val())){
+            $('#promotionalPrice').val('');
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'O preço promocional não pode ser maior que o preço original!',
+            });
+        }
+    });
+
+    function decimalShow(number) {
+        return number.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+
 </script>

@@ -38,6 +38,10 @@ class Product extends Controller
         if($request->productId){
             $product = DB::table('products')->where('id', $request->productId)->first();
             $variants = DB::table('product_variants')->where('product_id', $request->productId)->get();
+            //pega todas as fotos de cada variante da tabela product_images pelo product_variant_id e adiciona no objeto da variante
+            foreach ($variants as $variant) {
+                $variant->image = DB::table('product_images')->select('path as image')->where('product_variant_id', $variant->id)->get();
+            }
         }
 
         return view('admin.product.form', [
@@ -73,6 +77,7 @@ class Product extends Controller
     public static function productVariantCreate(Request $request)
     {
         try{
+
             $data = [
                 'product_id' => $request->productId,
                 'price' => self::decimalSave($request->price),
@@ -86,13 +91,70 @@ class Product extends Controller
 
             if($request->productId && $request->variantId){
                 DB::table('product_variants')->where('id', $request->variantId)->update($data);
+
+                //apaga as imagens da pasta referente a variante
+                $files = glob(public_path('uploads/products/'.$request->productId.'/'.$request->variantId));
+                foreach ($files as $file) {
+                   if (is_dir($file)) {
+                       self::deleteDirectory($file);
+                   }
+                }
+
+                DB::table('product_images')->where('product_variant_id', $request->variantId)->delete();
+                $photos = [];
+                if($request->hasFile('imagem_produto')){
+                    foreach ($request->file('imagem_produto') as $photo) {
+                        $photoName = md5(uniqid(rand(), true)).'_'.$request->productId.'_'.$request->variantId;
+                        $photo->move(public_path('uploads/products/'.$request->productId.'/'.$request->variantId), $photoName);
+                        $photos[] = $photoName;
+                    }
+                }
+                foreach ($photos as $key => $photo) {
+                    $isMain = false;
+
+                    if($key == 0) {
+                        $isMain = true;
+                    }
+
+                    DB::table('product_images')->insert([
+                        'product_variant_id' => $request->variantId,
+                        'path' => 'uploads/products/'.$request->productId.'/'.$request->variantId.'/'.$photo,
+                        'is_main' => $isMain
+                    ]);
+                }
+
                 return Redirect::to('product_form?productId='.$request->productId)->with('success', 'Variante editada com sucesso!');
             }else{
                 $variantId = DB::table('product_variants')->insertGetId($data);
+
+                DB::table('product_images')->where('product_variant_id', $variantId)->delete();
+                $photos = [];
+                if($request->hasFile('imagem_produto')){
+                    foreach ($request->file('imagem_produto') as $photo) {
+                        $photoName = md5(uniqid(rand(), true)).'_'.$request->productId.'_'.$variantId;
+                        $photo->move(public_path('uploads/products/'.$request->productId.'/'.$request->variantId), $photoName);
+                        $photos[] = $photoName;
+                    }
+                }
+                foreach ($photos as $key => $photo) {
+                    $isMain = false;
+
+                    if($key == 0) {
+                        $isMain = true;
+                    }
+
+                    DB::table('product_images')->insert([
+                        'product_variant_id' => $variantId,
+                        'path' => 'uploads/products/'.$request->productId.'/'.$request->variantId.'/'.$photo,
+                        'is_main' => $isMain
+                    ]);
+                }
+
                 return Redirect::to('product_form?productId='.$request->productId)->with('success', 'Variante criada com sucesso!');
             }
 
         }catch (\Exception $e) {
+            dd($e->getMessage());
             return redirect()->route('product_form')->with('error', 'Erro ao criar variante, Contate o administrador do sistema!');
         }
     }
@@ -107,4 +169,5 @@ class Product extends Controller
         }
 
     }
+
 }
