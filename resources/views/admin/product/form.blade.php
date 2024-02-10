@@ -28,7 +28,7 @@
                         <button type="submit" class="btn btn-primary text-white m-1">Salvar</button>
                         @if(($product->id ?? null))
                             <button type="button" class="btn btn-primary text-white m-1" data-bs-toggle="modal" data-bs-target="#variantModal">Adicionar Variante</button>                        @endif
-                        <button href="" class="btn btn-secondary text-white m-1">Voltar</button>
+                        <a href="{{route("product_list")}}" class="btn btn-secondary text-white m-1">Voltar</a>
                     </div>
                 </form>
             </div>
@@ -154,8 +154,6 @@
                             excluirVariant({{$product->id ?? null}}, id);
                         }
                     }
-
-
 
                 }
             ],

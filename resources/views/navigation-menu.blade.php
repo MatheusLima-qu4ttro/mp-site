@@ -26,7 +26,7 @@
         </a>
         <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="{{route('product_form')}}">Produto</a>
+                <a class="collapse-item" href="{{route('product_list')}}">Produto</a>
             </div>
         </div>
     </li>

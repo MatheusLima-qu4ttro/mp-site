@@ -10,6 +10,14 @@ use Illuminate\Support\Facades\Redirect;
 
 class Product extends Controller
 {
+    public static function productList(Request $request)
+    {
+        $products = DB::table('products')->get();
+        return view('admin.product.list', [
+            'page' => 'product_list',
+            'products' => $products
+        ]);
+    }
     public static function productForm(Request $request)
     {
         $categories = DB::table('categories')->get();
@@ -52,6 +60,16 @@ class Product extends Controller
         ]);
     }
 
+    public static function productDelete(Request $request)
+    {
+        try {
+            DB::table('products')->where('id', $request->productId)->delete();
+            return Redirect::to('product_list')->with('success', 'Produto deletado com sucesso!');
+        }catch (\Exception $e){
+            return Redirect::to('product_list')->with('error', 'Erro ao deletar produto, Contate o administrador do sistema!');
+        }
+
+    }
     public static function productCreate(Request $request)
     {
         try{
