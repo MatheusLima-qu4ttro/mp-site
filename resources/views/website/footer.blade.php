@@ -2,7 +2,7 @@
     <footer class="text-center py-4">
         <div class="row py-4 d-flex align-items-center dark-blue">
             <div class="col-md-6 text-white">
-                <h6">Conecte-se conosco nas redes sociais!</h6>
+                <h6>Conecte-se conosco nas redes sociais!</h6>
             </div>
             <div class="col-md-6">
 {{--                <a href="#"><span class="fa fa-brands fa-facebook-f"></span></a>--}}

@@ -104,4 +104,23 @@ class Manager
 
         return $categoriesArray;
     }
+
+    public static function productModal(Request $request)
+    {
+        //pega os produtos e suas variantes
+        $variant = DB::table('product_variants')->select('product_variants.*', 'products.name')
+            ->leftJoin('products', 'products.id', '=', 'product_variants.product_id')
+            ->where('product_variants.id', $request->variantId)
+            ->first();
+
+
+            $imgs = DB::table('product_images')
+                ->where('product_variant_id', '=', $variant->id)
+                ->get();
+            $variant->imgs = $imgs;
+
+        return view('website.product_modal', [
+            'variant' => $variant
+        ]);
+    }
 }

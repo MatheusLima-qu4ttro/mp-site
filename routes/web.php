@@ -17,6 +17,7 @@ use App\Http\Controllers\Admin\Category;
 */
 
 Route::get('/', [Manager::class, 'home'])->name('home');
+Route::get('/product_modal', [Manager::class, 'productModal'])->name('product_modal');
 Route::get('/terms', [Manager::class, 'terms'])->name('terms');
 Route::get('/catalog', [Manager::class, 'catalog'])->name('catalog');
 Route::get('/lgpd', [Manager::class, 'lgpd'])->name('lgpd');
