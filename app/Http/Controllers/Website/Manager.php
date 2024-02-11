@@ -3,17 +3,27 @@
 namespace App\Http\Controllers\Website;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
 
 class Manager
 {
-    public static function home()
+    public static function home(Request $request)
     {
         $company = DB::table('generals')->where('id', 1)->first();
         $slides = DB::table('slides')->orderBy('order')->get();
 
         $categoriesArray = self::getCategories();
 
-        $variants = DB::table('product_variants')->get();
+        $variants = DB::table('product_variants')->select('product_variants.*', 'products.name')
+            ->leftJoin('products', 'products.id', '=', 'product_variants.product_id')
+            ->when($request->category_id, function ($query, $category_id) {
+                return $query->where('products.category_id', $category_id);
+            })
+            ->when($request->search, function ($query, $search) {
+                return $query->where('products.name', 'LIKE', '%'.$search.'%');
+            })
+            ->get();
+
         foreach ($variants as $variant) {
             $img = DB::table('product_images')
                 ->where('product_variant_id', '=', $variant->id)
@@ -24,12 +34,17 @@ class Manager
             }
         }
 
+        if($request->category_id){
+            $categorySelected = DB::table('categories')->select('categories.name')->where('id', $request->category_id)->first()->name;
+        }
+
         return view('website.home', [
             'page' => 'home',
             'company' => $company,
             'slides' => $slides,
             'categories' => $categoriesArray,
-            'products' => $variants
+            'products' => $variants,
+            'categorySelected' => $categorySelected ?? "Todos"
         ]);
     }
 

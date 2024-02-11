@@ -32,8 +32,11 @@
         </button>
 
         <!-- Menu à direita em telas médias e maiores -->
-        <div class="collapse navbar-collapse" id="navbarsFurni" style="margin-left: 20vw; text-align: center">
+        <div class="collapse navbar-collapse" id="navbarsFurni" style="margin-left: 10vw; text-align: center">
             <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Todos</a>
+                </li>
                 @foreach($categories as $category)
                     @if(isset($category['subcategories']))
                         <li class="nav-item dropdown">
@@ -50,7 +53,7 @@
                         </li>
                     @else
                         <li class="nav-item">
-                            <a class="nav-link" href="#">{{$category['name']}}</a>
+                            <a class="nav-link" href="/?category_id={{$category['id']}}">{{$category['name']}}</a>
                         </li>
                     @endif
                 @endforeach

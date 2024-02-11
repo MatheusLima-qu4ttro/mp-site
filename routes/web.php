@@ -44,4 +44,8 @@ Route::middleware([
     Route::get('/category_delete', [Category::class, 'categoryDelete'])->name('category_delete');
     Route::post('/category_create', [Category::class, 'categoryCreate'])->name('category_create');
 
+    //configurations routes
+    Route::get('/website_form', [Configurations::class, 'websiteForm'])->name('website_form');
+
+
 });
