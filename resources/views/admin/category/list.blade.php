@@ -3,13 +3,13 @@
         <div class="card text-left">
             <div class="card-header bg-secondary text-white">
                 <div class="row">
-                    <h3 class="col-10">Produtos</h3>
-                    <button class="btn btn-primary float-end col-2 text-white" onclick="location.href = '{{route('product_form')}}'">Adicionar</button>
+                    <h3 class="col-10">Categorias</h3>
+                    <button class="btn btn-primary float-end col-2 text-white" onclick="location.href = '{{route('category_form')}}'">Adicionar</button>
                 </div>
             </div>
             <div class="card-body">
                 <input type="text" id="search-field" class="form-control m-1 col-3" placeholder="Buscar..." />
-                <div id="productGrid"></div>
+                <div id="categoryGrid"></div>
             </div>
         </div>
     </x-slot>
@@ -17,12 +17,10 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        var table = new Tabulator("#productGrid", {
+        var table = new Tabulator("#categoryGrid", {
             columns: [
                 {title: "ID", field: "id"},
                 {title: "Nome", field: "name"},
-                {title: "Descrição", field: "description"},
-                {title: "categoria", field: "category"},
                 {
                     title: "Ações",
                     formatter: function(cell, formatterParams, onRendered){
@@ -34,9 +32,9 @@
                         var id = cell.getRow().getData().id;
 
                         if(clickedElement && clickedElement.classList.contains('edit-btn')){
-                            editarProduct(id);
+                            editarCategory(id);
                         } else if(clickedElement && clickedElement.classList.contains('delete-btn')){
-                            excluirProduct(id);
+                            excluirCategory(id);
                         }
                     }
 
@@ -45,7 +43,7 @@
                 }
 
             ],
-            data: @json($products), // Certifique-se de que $products é convertido para JSON
+            data: @json($category), // Certifique-se de que $category é convertido para JSON
             layout: "fitColumns",
             pagination: "local",
             paginationSize: 7,
@@ -71,11 +69,11 @@
             return Object.values(data).some(val => String(val).toLowerCase().includes(value));
         };
 
-        function editarProduct(productId) {
-            location.href = "{{route('product_form')}}?productId=" + productId;
+        function editarCategory(categoryId) {
+            location.href = "{{route('category_form')}}?categoryId=" + categoryId;
         }
 
-        function excluirProduct(productId) {
+        function excluirCategory(categoryId) {
             Swal.fire({
                 title: "Atenção!",
                 text: "Essa ação é irreversível, deseja continuar?",
@@ -86,7 +84,7 @@
                 cancelButtonText: "Cancelar",
                 confirmButtonText: "Sim",
             }).then((result) => {
-                location.href = "{{route('product_delete')}}?productId=" + productId;
+                location.href = "{{route('category_delete')}}?categoryId=" + categoryId;
             });
         }
     });

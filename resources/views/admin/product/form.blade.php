@@ -88,6 +88,7 @@
                                         <label for="productVolt">Voltagem</label>
                                         <select name="voltage" class="form-control" id="productVolt" required>
                                             <option value="" disabled selected>Selecione uma voltagem</option>
+                                            <option>Não Aplicavel</option>
                                             <option>110</option>
                                             <option>220</option>
                                             <option>Bivolt</option>

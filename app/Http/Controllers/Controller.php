@@ -12,10 +12,26 @@ class Controller extends BaseController
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
     public static function decimalSave($number){
-        return str_replace(',', '.', str_replace('.', '', $number));
+        // Verifica se o número já está no formato correto (ponto como separador decimal e sem separador de milhares)
+        if (preg_match('/^\d+(\.\d+)?$/', $number)) {
+            // O número já está no formato correto, retorna como está
+            return $number;
+        }
+
+        // Substitui vírgula por ponto para o decimal e remove pontos de milhar, se necessário
+        $formattedNumber = str_replace(',', '.', str_replace('.', '', $number));
+
+        return $formattedNumber;
     }
 
     public static function decimalShow($number){
+        // Verifica se o número já está formatado corretamente
+        if (is_string($number) && preg_match('/^\d{1,3}(\.\d{3})*,\d{2}$/', $number)) {
+            // O número já está no formato desejado, retorna como está
+            return $number;
+        }
+
+        // Formata o número com duas casas decimais, usando vírgula como separador decimal e ponto como separador de milhares
         return number_format($number, 2, ',', '.');
     }
 
