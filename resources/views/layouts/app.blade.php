@@ -26,6 +26,16 @@
         <script type="text/javascript" src="https://unpkg.com/tabulator-tables@5.5.4/dist/js/tabulator.min.js"></script>
         <link href="https://unpkg.com/tabulator-tables@4.3.0/dist/css/bootstrap/tabulator_bootstrap.css" rel="stylesheet">
 
+        <!-- CSS do Summernote -->
+        <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
+
+        <!-- jQuery (obrigatório para o Summernote) -->
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+        <!-- JavaScript do Summernote -->
+        <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
+
+
         @livewireStyles
     </head>
     <body class="font-sans antialiased bg-light">

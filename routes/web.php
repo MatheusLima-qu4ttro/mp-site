@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Website\Manager;
 use App\Http\Controllers\Admin\Product;
 use App\Http\Controllers\Admin\Category;
+use App\Http\Controllers\Admin\Configuration;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,7 +47,8 @@ Route::middleware([
     Route::post('/category_create', [Category::class, 'categoryCreate'])->name('category_create');
 
     //configurations routes
-    Route::get('/website_form', [Configurations::class, 'websiteForm'])->name('website_form');
+    Route::get('/website_form', [Configuration::class, 'websiteForm'])->name('website_form');
+    Route::post('/website_edit', [Configuration::class, 'websiteEdit'])->name('website_edit');
 
 
 });
