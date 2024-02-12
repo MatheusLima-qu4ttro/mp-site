@@ -179,6 +179,7 @@ class Product extends Controller
             }
 
         }catch (\Exception $e) {
+            dd($e);
             return redirect()->route('product_form')->with('error', 'Erro ao criar/editar variante, Contate o administrador do sistema!');
         }
     }
