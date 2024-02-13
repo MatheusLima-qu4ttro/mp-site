@@ -13,10 +13,12 @@ class Configuration extends Controller
     public static function websiteForm(Request $request)
     {
         $general = DB::table('generals')->first();
+        $slides = DB::table('slides')->orderBy('order', 'asc')->get();
 
         return view('admin.general.form', [
             'page' => 'website_form',
-            'website' => $general
+            'website' => $general,
+            'slides' => $slides
         ]);
     }
 
@@ -25,6 +27,8 @@ class Configuration extends Controller
         try{
             $data = [
                 'company'              => $request->company,
+                'size'                 => $request->size,
+                'font'                 => $request->font,
                 'company_description'  => $request->description,
                 'facebook_url'         => $request->facebook_url,
                 'instagram_url'        => $request->instagram_url,
@@ -39,6 +43,7 @@ class Configuration extends Controller
             ];
 
             if($request->websiteId){
+//                general
                 if($request->hasFile('logo_path')) {
                     //apaga as imagens da pasta referente a variante
                     $files = glob(public_path('uploads/general/' . $request->websiteId));
@@ -57,6 +62,37 @@ class Configuration extends Controller
                 }
 
                 DB::table('generals')->where('id', $request->websiteId)->update($data);
+//                end general
+
+//                slides
+                if($request->hasFile('path')) {
+                    //apaga as imagens da pasta referente a variante
+                    $slideFiles = glob(public_path('uploads/general/slides/' . $request->websiteId));
+
+                    foreach ($slideFiles as $slideFile) {
+                        if (is_dir($slideFile)) {
+                            self::deleteDirectory($slideFile);
+                        }
+                    }
+
+                    DB::table('slides')->delete();
+
+                    foreach ($request->file('path') as $slide) {
+                        $slideName = md5(uniqid(rand(), true)).'_'.$request->websiteId;
+                        $slide->move(public_path('uploads/general/slides/'.$request->websiteId), $slideName);
+                        $slides[] = $slideName;
+                    }
+
+                    foreach ($slides as $key => $slide) {
+                        DB::table('slides')->insert([
+                            'name' => $slide,
+                            'path' => 'uploads/general/slides/'.$request->websiteId.'/'.$slide,
+                            'order' => $key + 1
+                        ]);
+                    }
+                }
+//                end slides
+
                 return Redirect::to('website_form?websiteId='.$request->websiteId)->with('success', 'Website editado com sucesso!');
             }else{
 //                $categoryId = DB::table('categories')->insertGetId($data);

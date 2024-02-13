@@ -193,6 +193,11 @@
                 $('#price').val(decimalShow(variantDetails.price));
                 $('#promotionalPrice').val(decimalShow(variantDetails.promotional_price));
                 $('#productVariantDescription').val(variantDetails.description);
+                $('#productVariantDescription').summernote({
+                    placeholder: 'Digite a descrição da variante...',
+                    tabsize: 2,
+                    height: 200
+                });
                 $('#model').val(variantDetails.model);
                 $('#productColorName').val(variantDetails.color_name);
                 $('#productColor').val(variantDetails.colorCode);
@@ -283,5 +288,15 @@
     function decimalShow(number) {
         return number.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
+
+
+    // Inicialize o Summernote nos campos de texto
+    $(document).ready(function() {
+        $('#productDescription').summernote({
+            placeholder: 'Digite a descrição do produto...',
+            tabsize: 2,
+            height: 200
+        });
+    });
 
 </script>
