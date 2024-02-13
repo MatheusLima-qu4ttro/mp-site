@@ -62,7 +62,7 @@
                             <!-- main info -->
                             <div class="main-info">
                                 <h3 class="font-weight-bold text-dark">{{$variant->name}}</h3>
-                                <h4 class="">{{$variant->description}}</h4>
+                                <h4 class="">{!! $variant->description !!}</h4>
                                 <hr>
                                 <div class="mt-3">
                                     @if(!true)

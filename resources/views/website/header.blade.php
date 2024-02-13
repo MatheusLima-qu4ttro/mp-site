@@ -23,7 +23,7 @@
 
         <!-- Logotipo à esquerda em telas médias e maiores -->
         <a class="navbar-brand" href="{{ route('home') }}">
-            <img width="150px" src="{{ url($company->logo_path ?: '') }}" alt="Logo"> {{$company->company ?: ''}}<!--Móveis Pontarollo-->
+            <img width="150px" src="{{ url($company->logo_path ?: '') }}" alt="Logo"> <span style="font-size: {{$company->size ?: '20'}}px;font-family: {{$company->font ?: 'Arial'}};">{{$company->company ?: ''}}</span>
         </a>
 
         <!-- Botão de alternância para dispositivos móveis -->
