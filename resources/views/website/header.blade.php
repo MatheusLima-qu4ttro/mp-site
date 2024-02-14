@@ -66,11 +66,11 @@
                         <i class="fa-2x fa fa-user"></i>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="cart.html">
-                        <i class="fa-2x fa fa-shopping-cart"></i>
-                    </a>
-                </li>
+{{--                <li class="nav-item">--}}
+{{--                    <a class="nav-link" href="cart.html">--}}
+{{--                        <i class="fa-2x fa fa-shopping-cart"></i>--}}
+{{--                    </a>--}}
+{{--                </li>--}}
             </ul>
         </div>
 

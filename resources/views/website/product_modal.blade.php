@@ -111,7 +111,7 @@
             <div class="modal-footer">
                 <div class="row">
                     <div class="col-md-12">
-                        <button type="button" class="btn btn-add-cart "><i class="fa-solid fa-cart-plus"></i> Adicionar ao carrinho</button>
+{{--                        <button type="button" class="btn btn-add-cart "><i class="fa-solid fa-cart-plus"></i> Adicionar ao carrinho</button>--}}
                         <button type="button" class="btn btn-share-whatsapp "><i class="fa-brands fa-whatsapp"></i> Compartilhar por whatsapp</button>
                     </div>
                 </div>
